@@ -5,6 +5,7 @@ from _pytest.config import Config
 # No need to import when using x-dist
 # from _pytest.nodes import WorkerInput
 
+WORKER_INPUT = "workerinput"
 
 def pytest_addoption(parser):
     parser.addoption("--yaml", action="store", default="test_suite.yml", help="Path to YAML test suite")
@@ -13,7 +14,7 @@ def pytest_addoption(parser):
 def pytest_configure(config: Config):
     # Read yaml definitions and share test definitions
     # to workers via config in order to be compatible with pytest-xdist.
-    worker_process: bool = hasattr(config, "workerinput")
+    worker_process: bool = hasattr(config, WORKER_INPUT)
     if not worker_process:  # master process in pytest-xdist
         yaml_path = config.getoption("--yaml")  # read yaml
         with open(yaml_path, "r") as f:
@@ -22,7 +23,7 @@ def pytest_configure(config: Config):
 @pytest.fixture(scope="session")
 def test_definitions(request):
     config = request.config
-    worker_process: bool = hasattr(config, "workerinput")
+    worker_process: bool = hasattr(config, WORKER_INPUT)
     if worker_process:
         return config.workerinput["test_definitions"]
     return config.test_definitions
