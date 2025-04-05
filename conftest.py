@@ -11,17 +11,19 @@ def pytest_addoption(parser):
 
 
 def pytest_configure(config: Config):
-    # Share test definitions to workers via config
+    # Read yaml definitions and share test definitions
+    # to workers via config in order to be compatible with pytest-xdist.
     if hasattr(config, "workerinput"):
-       return
+        return  # skip reading yamls if it is a worker node
 
+    # read yaml definitions only by master node
     yaml_path = config.getoption("--yaml")
     with open(yaml_path, "r") as f:
         config.test_definitions = yaml.safe_load(f)
 
 
 def pytest_configure_node(node):
-    """Called in main process to configure a worker node."""
+    """This hook is called by the main process to configure a worker node by pytest-xdist plugin."""
     node.workerinput["test_definitions"] = node.config.test_definitions
 
 @pytest.fixture(scope="session")
