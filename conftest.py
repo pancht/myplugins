@@ -1,42 +1,34 @@
 import pytest
-
-pytest_plugins = ["dynamic_pytest_framework.plugin"]
-
-@pytest.fixture(autouse=True)
-def self(request):
-    # fixture returning self for class-level fixtures
-    # this is to handle, fixture "self" not found error
-    # while debugging framework or individual test(s)
-    yield request.cls
+import yaml
+import os
+from _pytest.config import Config
+# No need to import when using x-dist
+# from _pytest.nodes import WorkerInput
 
 
-@pytest.fixture
-def test_meta(request):
-    for key, val in request.node.user_properties:
-        if key == "yaml_metadata":
-            return val
-    return None
+def pytest_addoption(parser):
+    parser.addoption("--yaml", action="store", default="test_suite.yml", help="Path to YAML test suite")
 
 
-# @pytest.fixture
-# def test_meta(request):
-#     """Fixture to access test metadata from YAML."""
-#     for key, value in request.node.user_properties:
-#         if key == "yaml_metadata":
-#             return value
-#     return None
-#
-#
-# # Class-Scoped Fixture with request Access
-# # If you want to use test_meta for all tests in the class, you can:
-# # Define a fixture that runs per-class
-# @pytest.fixture(scope="class")
-# def class_meta(request):
-#     # request.node is the class, but we need to get one function item inside it
-#     function_items = list(request.session.items)
-#     for item in function_items:
-#         if item.parent == request.node:
-#             for key, value in item.user_properties:
-#                 if key == "yaml_metadata":  # value from yml
-#                     return value
-#     return None
+def pytest_configure(config: Config):
+    # Read yaml definitions and share test definitions
+    # to workers via config in order to be compatible with pytest-xdist.
+    if hasattr(config, "workerinput"):
+        return  # skip reading yamls if it is a worker node
+
+    # read yaml definitions only by master node
+    yaml_path = config.getoption("--yaml")
+    with open(yaml_path, "r") as f:
+        config.test_definitions = yaml.safe_load(f)
+
+
+def pytest_configure_node(node):
+    """This hook is called by the main process to configure a worker node by pytest-xdist plugin."""
+    node.workerinput["test_definitions"] = node.config.test_definitions
+
+@pytest.fixture(scope="session")
+def test_definitions(request):
+    config = request.config
+    if hasattr(config, "workerinput"):
+        return config.workerinput["test_definitions"]
+    return config.test_definitions
