@@ -1,0 +1,10 @@
+TestMathOps:
+  suite_name: "Math Operations"
+  tests:
+    - name: "test_add"
+      id: "T001"
+      params: { a: 2, b: 3, expected: 5 }
+
+    - name: "test_subtract"
+      id: "T002"
+      params: { a: 10, b: 3, expected: 7 }

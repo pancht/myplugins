@@ -1,0 +1,67 @@
+# dynamic_pytest_framework/plugin.py
+import pytest
+import yaml
+from pathlib import Path
+from typing import Any
+import inspect
+
+
+def load_test_definitions(yaml_file):
+    with open(yaml_file) as f:
+        return yaml.safe_load(f)
+
+
+class YamlTestItem(pytest.Function):
+    def __init__(self, *args, test_metadata=None, **kwargs):
+        self.test_metadata = test_metadata
+        super().__init__(*args, **kwargs)
+
+
+class YamlTestPlugin:
+    def __init__(self, yaml_path: str):
+        self.yaml_path = yaml_path
+        self.test_definitions = load_test_definitions(yaml_path)
+
+    def pytest_pycollect_makeitem(self, collector: Any, name: str, obj: Any):
+        items = []
+        if inspect.isfunction(obj) and name.startswith("test_"):
+            rel_path = str(Path(collector.fspath).relative_to(Path.cwd()))
+            tests = self.test_definitions.get(rel_path, [])
+            for test_data in tests:
+                test_name = f"{name}[{test_data['id']}]"
+                item = YamlTestItem.from_parent(
+                    collector, name=test_name, callobj=obj, test_metadata=test_data
+                )
+                item.user_properties.append(("yaml_metadata", test_data))
+                items.append(item)
+        return items
+
+    def pytest_addoption(self, parser):
+        parser.addoption("--yaml", action="store", default="tests/test_suite.yml")
+
+    def pytest_configure(self, config):
+        yaml_path = config.getoption("--yaml")
+        plugin = YamlTestPlugin(yaml_path)
+        config.pluginmanager.register(plugin, name="yaml_test_plugin")
+
+
+# test_sample.py
+import pytest
+
+def test_example():
+    assert True
+
+
+# tests/test_suite.yml
+# Format: {relative_path_to_test_file: list of test cases}
+tests/test_sample.py:
+  - id: case_001
+    title: Test example case 001
+    description: Check that True is truthy.
+  - id: case_002
+    title: Test example case 002
+    description: Check that True remains True
+
+
+# conftest.py
+pytest_plugins = ["dynamic_pytest_framework.plugin"]
