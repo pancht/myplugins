@@ -1,25 +1,10 @@
-2025-04-07 22:06:48,089 - INFO - pytest_configure is called - once per session by worker process
-2025-04-07 22:06:48,092 - INFO - cache: Cache()
-2025-04-07 22:06:48,130 - INFO - Session started - tests are collected
-2025-04-07 22:06:48,190 - INFO - Collecting test item: @py_builtins
-2025-04-07 22:06:48,191 - INFO - Collecting test item: @pytest_ar
-2025-04-07 22:06:48,192 - INFO - Collecting test item: logging
-2025-04-07 22:06:48,193 - INFO - Collecting test item: pytest
-2025-04-07 22:06:48,194 - INFO - Collecting test item: Integration
-2025-04-07 22:06:48,195 - INFO - Collecting test item: test_add
-2025-04-07 22:06:48,196 - INFO - Collecting test item: test_subtract
-2025-04-07 22:06:48,199 - INFO - From source fixture
-2025-04-07 22:06:48,200 - INFO - From destination fixture
-2025-04-07 22:06:48,200 - INFO - From integration fixture
-2025-04-07 22:06:48,202 - INFO - from test test_add
-2025-04-07 22:06:48,204 - INFO - Destroy integration
-2025-04-07 22:06:48,206 - INFO - From source fixture
-2025-04-07 22:06:48,207 - INFO - From destination fixture
-2025-04-07 22:06:48,207 - INFO - From integration fixture
-2025-04-07 22:06:48,209 - INFO - from test test_add
-2025-04-07 22:06:48,237 - INFO - Destroy integration
-2025-04-07 22:06:48,240 - INFO - From source fixture
-2025-04-07 22:06:48,240 - INFO - From destination fixture
-2025-04-07 22:06:48,240 - INFO - From integration fixture
-2025-04-07 22:06:48,242 - INFO - from test test_subtract
-2025-04-07 22:06:48,244 - INFO - Destroy integration
+2025-04-07 22:19:06,544 - INFO - pytest_configure is called - once per session by worker process
+2025-04-07 22:19:06,546 - INFO - cache: Cache()
+2025-04-07 22:19:06,573 - INFO - Session started - tests are collected
+2025-04-07 22:19:06,620 - INFO - Collecting test item: @py_builtins
+2025-04-07 22:19:06,623 - INFO - Collecting test item: @pytest_ar
+2025-04-07 22:19:06,624 - INFO - Collecting test item: logging
+2025-04-07 22:19:06,624 - INFO - Collecting test item: pytest
+2025-04-07 22:19:06,625 - INFO - Collecting test item: Integration
+2025-04-07 22:19:06,626 - INFO - Collecting test item: test_add
+2025-04-07 22:19:06,627 - INFO - Collecting test item: test_subtract

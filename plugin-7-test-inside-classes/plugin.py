@@ -1,6 +1,7 @@
 import logging
 import re
 import sys
+from symtable import Class
 
 import pytest
 import yaml
@@ -16,6 +17,12 @@ import pytest
 ALLURE_RESULTS_DIR = "allure-results"
 ALLURE_HISTORY_DIR = "allure-history"
 
+def get_key_in_yml_test_data(collector):
+    module_name = collector.name if isinstance(collector, Module) else collector.parent.name
+    module_name = re.sub(r"^test_|\.py$", "", module_name)
+    if module_name:
+        return re.sub(r"^test_|\.py$", "", module_name)
+    return None
 def move_allure_results_to_history():
     # Check if the allure-results directory exists
     if os.path.exists(ALLURE_RESULTS_DIR):
@@ -83,11 +90,7 @@ def pytest_pycollect_makeitem(collector, name, obj):
     _yaml_test_data = config.cache.get('_yaml_test_data', None)
 
     if inspect.isfunction(obj) and name.startswith("test_"):
-        if isinstance(collector, Module):
-            module_name = collector.name
-            module_name = re.sub(r"^test_|\.py$", "", module_name)
-        else:
-            module_name = collector.parent.name if hasattr(collector.parent, 'name') else None
+        module_name = get_key_in_yml_test_data(collector)
 
         if module_name and module_name in _yaml_test_data:
             data = _yaml_test_data[module_name].get(name)
