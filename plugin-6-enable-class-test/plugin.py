@@ -113,6 +113,7 @@ def integration(source, destination):
     logging.info("From integration fixture")
     integration = Integration(source, destination)
     yield integration
+    logging.info("Destroy integration")
 
 @pytest.fixture
 def input_data():

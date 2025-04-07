@@ -4,7 +4,7 @@ test_add:
     expected: 3
   - a: 5
     b: 7
-    expected: 12
+    expected: 13
 
 test_subtract:
   - a: 10
