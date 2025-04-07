@@ -36,6 +36,7 @@ def pytest_pycollect_makeitem(collector, name, obj):
                 for idx, params in enumerate(data):
                     item = pytest.Function.from_parent(collector, name=f"{name}[{idx}]", callobj=obj)
                     item.funcargs = {'input_data': params}
+                    item.user_properties = {'input_data': params}
                     items.append(item)
                 return items
     return None
@@ -56,11 +57,11 @@ class Integration(Source, Destination):
 
 @pytest.fixture
 def source(request):
-    source = Source()
+    source = Source(request.node.user_properties)
     yield source
 
 def destination(request):
-    destination = Destination()
+    destination = Destination(request.node.user_properties)
     yield destination
 
 def integration(source, destination):
