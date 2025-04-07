@@ -7,6 +7,26 @@ import yaml
 from pathlib import Path
 import inspect
 from _pytest.python import Module
+import shutil
+import os
+import pytest
+
+
+# Path to your allure results and history directories
+ALLURE_RESULTS_DIR = "allure-results"
+ALLURE_HISTORY_DIR = "allure-history"
+
+def move_allure_results_to_history():
+    # Check if the allure-results directory exists
+    if os.path.exists(ALLURE_RESULTS_DIR):
+        # If allure-results exists, move it to allure-history
+        if not os.path.exists(ALLURE_HISTORY_DIR):
+            os.makedirs(ALLURE_HISTORY_DIR)  # Create allure-history if it doesn't exist
+        shutil.move(ALLURE_RESULTS_DIR, ALLURE_HISTORY_DIR)
+        # print(f"Moved {ALLURE_RESULTS_DIR} to {ALLURE_HISTORY_DIR}")
+    else:
+        # print(f"No {ALLURE_RESULTS_DIR} directory found.")
+        pass
 
 def delete_file_if_exists(file_name: str):
     file_path = Path(file_name)
@@ -27,6 +47,8 @@ def process_name(config) -> str:
 def pytest_sessionstart(session):
     # Log once when session starts to confirm collection is complete
     logging.info("Session started - tests are collected")
+    # move current allure results to history
+    # move_allure_results_to_history()
 
 def pytest_addoption(parser):
     parser.addoption("--data-dir", action="store", default="test_data", help="Directory with YAML test data")
