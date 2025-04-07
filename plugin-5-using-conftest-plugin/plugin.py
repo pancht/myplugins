@@ -48,3 +48,20 @@ def abc(request):
 def input_data(abc):
     return abc._pyfuncitem.funcargs['input_data']
 
+
+# --------------------
+# Example plugin that passes test-configs via request
+# Sequence of calls
+# input_data -> abc
+# abc fixture consumes test-configs via request read from yaml
+# passes back test-config to input_data fixture
+# its upto test if it wants to consume test-config.
+#
+# Following are Limitations and Features as of now.
+#
+# Limitations:
+# 1. It does not support test withing test classes.
+#
+# Feature:
+# Parameterizes tests from input values to each test from the yaml.
+
