@@ -6,7 +6,7 @@ import pytest
 import yaml
 from pathlib import Path
 import inspect
-from _pytest.python import Module, Class
+from _pytest.python import Module
 import shutil
 import os
 import pytest
@@ -99,20 +99,6 @@ def pytest_pycollect_makeitem(collector, name, obj):
                     item.user_properties = {'input_data': params}
                     items.append(item)
                 return items
-    elif isinstance(collector, Class) and name.startswith("test_"):
-        # Handling class-based tests
-        if hasattr(collector, "parent"):
-            module_name = collector.parent.name if hasattr(collector.parent, 'name') else None
-            if module_name and module_name in _yaml_test_data:
-                data = _yaml_test_data[module_name].get(name)
-                if data:
-                    items = []
-                    for idx, params in enumerate(data):
-                        item = pytest.Function.from_parent(collector, name=f"{name}[{idx}]", callobj=obj)
-                        item.funcargs = {'input_data': params}
-                        item.user_properties = {'input_data': params}
-                        items.append(item)
-                    return items
     return None
 
 class Source:
