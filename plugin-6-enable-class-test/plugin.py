@@ -1,4 +1,5 @@
 import logging
+import re
 import sys
 
 import pytest
@@ -62,7 +63,7 @@ def pytest_pycollect_makeitem(collector, name, obj):
     if inspect.isfunction(obj) and name.startswith("test_"):
         if isinstance(collector, Module):
             module_name = collector.name
-            module_name = module_name.replace("test_", "").replace(".py", "")
+            module_name = re.sub(r"^test_|\.py$", "", module_name)
         else:
             module_name = collector.parent.name if hasattr(collector.parent, 'name') else None
 
