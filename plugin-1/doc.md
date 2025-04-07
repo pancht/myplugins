@@ -1,0 +1,1 @@
+pytest -n 3 --yaml=tests/test_suite.yml
