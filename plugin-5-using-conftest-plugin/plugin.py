@@ -40,13 +40,36 @@ def pytest_pycollect_makeitem(collector, name, obj):
                 return items
     return None
 
-@pytest.fixture
-def abc(request):
-    return request
+class Source:
+    def __init__(self):
+        self.msg = "initialize source"
+
+class Destination:
+    def __init__(self):
+        self.msg = "initialize destination"
+
+class Integration(Source, Destination):
+    def __init__(self, source: Source, destination: Destination):
+        self.source = source
+        self.destination = destination
+        self.msg = "initialize integration"
 
 @pytest.fixture
-def input_data(abc):
-    return abc._pyfuncitem.funcargs['input_data']
+def source(request):
+    source = Source()
+    yield source
+
+def destination(request):
+    destination = Destination()
+    yield destination
+
+def integration(source, destination):
+    integration = Integration(source, destination)
+    yield integration
+
+@pytest.fixture
+def input_data():
+    return source._pyfuncitem.funcargs['input_data']
 
 
 # --------------------
