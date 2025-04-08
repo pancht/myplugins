@@ -1,6 +1,37 @@
+import logging
+import re
+import sys
+
 import pytest
 import yaml
 from pathlib import Path
+import inspect
+from _pytest.python import Module
+import shutil
+import os
+import pytest
+
+def delete_file_if_exists(file_name: str):
+    file_path = Path(file_name)
+
+    # Check if the file exists and delete it
+    if file_path.exists():
+        file_path.unlink()
+        print(f"file {file_name} deleted.")
+    else:
+        print(f"file {file_name} does not exist.")
+
+def is_worker(config):
+    return hasattr(config, "workerinput")
+
+def process_name(config) -> str:
+    return "worker" if is_worker(config) else "master"
+
+def pytest_sessionstart(session):
+    # Log once when session starts to confirm collection is complete
+    logging.info(f"Session started by {process_name(session.config)} process")
+    # move current allure results to history
+    # move_allure_results_to_history()
 
 
 def pytest_addoption(parser):
@@ -20,10 +51,21 @@ def load_test_data(data_dir):
 
 
 def pytest_configure(config):
+    log_file = 'test_execution.log'
+    delete_file_if_exists(log_file)
+    # Set up logging configuration
+    logging.basicConfig(
+        filename=log_file,  # Log file name
+        level=logging.DEBUG,  # Log level (DEBUG to capture everything)
+        format='%(asctime)s - %(levelname)s - %(message)s',  # Log message format
+    )
+    logging.info(f"pytest_configure is called - once per session by {process_name(config)} process")
+
     config.test_data = load_test_data(config.getoption("--data-dir"))
 
 
 def pytest_generate_tests(metafunc):
+    logging.info(f"pytest_generate_tests called by {process_name(metafunc.config)} process")
     module_name = Path(metafunc.definition.fspath).stem
     test_data = metafunc.config.test_data.get(module_name, {})
 
@@ -50,10 +92,12 @@ def pytest_generate_tests(metafunc):
 
 # Example additional fixture
 @pytest.fixture
-def integration():
+def integration(request):
+    logging.info(f"From integration fixture by {process_name(request.config)} process")
     return "integration-db-session"
 
 
 @pytest.fixture
-def config():
+def config(request):
+    logging.info(f"from config fixture by {process_name(request.config)} process")
     return {"env": "staging", "timeout": 30}
