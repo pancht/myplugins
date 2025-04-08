@@ -28,7 +28,7 @@ def test_multi_input(a, b, expected, integration, config):
 
 
 class TestMathOperations:
-    @allure.epic("Math Operations")
+    @allure.epic("SQL Operations")
     @allure.feature("Subtraction")
     @allure.story("Simple subtraction case")
     @pytest.mark.ui
