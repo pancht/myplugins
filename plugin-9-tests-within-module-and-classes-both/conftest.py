@@ -1,6 +1,7 @@
 import logging
 import re
 import sys
+from colorsys import yiq_to_rgb
 
 import pytest
 import yaml
@@ -23,7 +24,8 @@ def marker_support(config):
         "resilience: marks resilience testing",
         "component: marks component-level tests",
         "fault_tolerance: marks fault tolerance tests",
-        "slow: marks slow tests"
+        "slow: marks slow tests",
+        "testrail_id(id): Link test case to TestRail ID"
     ]
 
     for marker in markers:
@@ -114,10 +116,12 @@ def pytest_generate_tests(metafunc):
 @pytest.fixture
 def integration(request):
     logging.info(f"From integration fixture by {process_name(request.config)} process")
-    return "integration-db-session"
+    yield "integration-db-session"
+    logging.info("Destroy integration")
 
 
 @pytest.fixture
 def config(request):
     logging.info(f"from config fixture by {process_name(request.config)} process")
-    return {"env": "staging", "timeout": 30}
+    yield {"env": "staging", "timeout": 30}
+    logging.info("Destroy config")

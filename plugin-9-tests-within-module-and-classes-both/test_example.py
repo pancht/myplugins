@@ -8,6 +8,8 @@ import pytest
 @allure.story("Simple add case")
 @pytest.mark.functional
 @pytest.mark.sanity
+@pytest.mark.testrail_id("C1000")
+@pytest.mark.testrail_id("C1001")
 def test_add(case):
     assert case["a"] + case["b"] == case["expected"]
 
@@ -20,6 +22,7 @@ def test_add(case):
 @pytest.mark.sanity
 @pytest.mark.smoke
 @pytest.mark.slow
+@pytest.mark.testrail_id("C1002")
 def test_multi_input(a, b, expected, integration, config):
     print(f"Running with {integration} and config {config}")
     assert a + b == expected
@@ -32,5 +35,21 @@ class TestMathOperations:
     @pytest.mark.ui
     @pytest.mark.regression
     @pytest.mark.sanity
+    @pytest.mark.testrail_id("C1003")
     def test_subtract(self, case, integration):
         assert case["a"] - case["b"] == case["expected"]
+
+def pytest_runtest_makereport(item, call):
+    outcome = yield
+    report = outcome.get_result()
+
+    if report.when == "call":
+        markers = item.iter_markers(name="testrail_id")
+        for marker in markers:
+            testrail_ids = marker.args[0]
+            if isinstance(testrail_ids, str):
+                testrail_ids = [testrail_ids]
+
+            for case_id in testrail_ids:
+                testrail_url = f"https://yourcompany.testrail.io/index.php?/cases/view/{case_id.lstrip('C')}"
+                allure.dynamic.link(testrail_url, name=case_id)
