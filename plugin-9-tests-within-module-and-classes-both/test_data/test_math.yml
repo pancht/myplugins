@@ -1,8 +1,0 @@
-test_add:
-  - {a: 1, b: 2, expected: 3}
-  - {a: 5, b: 7, expected: 12}
-
-TestMathOperations:
-  test_subtract:
-    - {a: 10, b: 3, expected: 7}
-    - {a: 20, b: 5, expected: 15}
