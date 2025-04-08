@@ -23,6 +23,7 @@ def marker_support(config):
         "resilience: marks resilience testing",
         "component: marks component-level tests",
         "fault_tolerance: marks fault tolerance tests",
+        "slow: marks slow tests"
     ]
 
     for marker in markers:

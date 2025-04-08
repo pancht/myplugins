@@ -1,18 +1,23 @@
 1. fixture parameterization through config
-2. xdist support with test item customization
-3. test reporting
-   1. Cool test report overview
-   2. Categories
-   3. Graphs
-   4. Timeline
-   5. Behaviours
-   6. Packages
-   7. Great community support
-   8. Open Source
-9. Support for test grouping by pytest
+9. Marker support by pytest enables categorization of tests and selection
    10. pytest --markers
    11. pytest --co
    12. pytest --co -m <marker>
-10. Support for parallel test execution by pytest-xdist
+10. Parallel test execution by pytest-xdist
     11. -n <#tests>
-11. 
+11. Test filtering by pytest
+    12. -k "add" 
+13. Allure Reporting Integration
+    14. Cool test report overview 
+    15. Categories 
+    16. Graphs 
+    17. Timeline 
+    18. Behaviours 
+    19. Packages 
+    20. Great community support 
+    21. Open Source
+22. Dynamic Test Generation
+    23. Tests can be created dynamically using the pytest_generate_tests hook.
+24. Skipping/Expected Failures
+    25. Use @pytest.mark.skip, @pytest.mark.skipif, or @pytest.mark.xfail.
+26. 

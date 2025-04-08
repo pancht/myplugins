@@ -19,6 +19,7 @@ def test_add(case):
 @pytest.mark.api
 @pytest.mark.sanity
 @pytest.mark.smoke
+@pytest.mark.slow
 def test_multi_input(a, b, expected, integration, config):
     print(f"Running with {integration} and config {config}")
     assert a + b == expected
