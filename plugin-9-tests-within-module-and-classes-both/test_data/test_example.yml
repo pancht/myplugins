@@ -9,4 +9,4 @@ test_multi_input:
 TestMathOperations:
   test_subtract:
     - {a: 5, b: 2, expected: 3}
-    - {a: 10, b: 4, expected: 6}
+    - {a: 10, b: 4, expected: 7}

@@ -11,6 +11,23 @@ import shutil
 import os
 import pytest
 
+def marker_support(config):
+    markers = [
+        "ui: marks UI tests",
+        "regression: marks regression suite",
+        "api: marks API-related tests",
+        "sanity: marks sanity check tests",
+        "smoke: marks smoke suite",
+        "integration: marks integration tests",
+        "functional: marks functional tests",
+        "resilience: marks resilience testing",
+        "component: marks component-level tests",
+        "fault_tolerance: marks fault tolerance tests",
+    ]
+
+    for marker in markers:
+        config.addinivalue_line("markers", marker)
+
 def delete_file_if_exists(file_name: str):
     file_path = Path(file_name)
 
@@ -63,6 +80,8 @@ def pytest_configure(config):
 
     config.test_data = load_test_data(config.getoption("--data-dir"))
 
+    # add markers
+    marker_support(config)
 
 def pytest_generate_tests(metafunc):
     logging.info(f"pytest_generate_tests called by {process_name(metafunc.config)} process")
