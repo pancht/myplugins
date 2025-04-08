@@ -126,3 +126,8 @@ def config(request):
     logging.info(f"from config fixture by {process_name(request.config)} process")
     yield {"env": "staging", "timeout": 30}
     logging.info("Destroy config")
+
+#
+# def pytest_runtest_teardown(item, nextitem):
+#     with allure.step(f"Global Teardown for: {item.name}"):
+#         allure.attach(f"Cleaning up after test: {item.name}", name="global-teardown", attachment_type=allure.attachment_type.TEXT)

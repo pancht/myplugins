@@ -1,5 +1,6 @@
-1. fixture parameterization through config
-9. Marker support by pytest enables categorization of tests and selection
+1. Fixtures for Data Sharing 
+   2. Use request object to get context/config.
+9. Marker support for grouping of tests and selection
    10. pytest --markers
    11. pytest --co
    12. pytest --co -m <marker>
@@ -10,7 +11,8 @@
     23. Tests can be created dynamically using the pytest_generate_tests hook.
 24. Skipping/Expected Failures
     25. Use @pytest.mark.skip, @pytest.mark.skipif, or @pytest.mark.xfail.
-26. Test filtering by pytest
+    26. @pytest.mark.skip(reason="Not implemented yet")
+27. Test filtering by pytest
     12. -k "add" 
 13. Allure Reporting Integration
     14. Cool test report overview 

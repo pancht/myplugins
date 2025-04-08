@@ -24,7 +24,7 @@ def test_add(case):
 @pytest.mark.testrail_id("C1002", "C1003")
 def test_multi_input(a, b, expected, integration, config):
     print(f"Running with {integration} and config {config}")
-    assert a + b == expected
+    assert a * b == expected
 
 
 class TestMathOperations:
