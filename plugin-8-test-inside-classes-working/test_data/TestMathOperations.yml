@@ -1,0 +1,6 @@
+test_add:
+  - {a: 1, b: 2, expected: 3}
+  - {a: 5, b: 7, expected: 12}
+test_subtract:
+  - {a: 10, b: 5, expected: 5}
+  - {a: 9, b: 3, expected: 6}
