@@ -3,6 +3,7 @@
    10. pytest --markers
    11. pytest --co
    12. pytest --co -m <marker>
+1. Testrail id using marker
 10. Parallel test execution by pytest-xdist
     11. -n <#tests>
 22. Dynamic Test Generation
