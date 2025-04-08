@@ -14,7 +14,7 @@
     12. -k "add" 
 13. Allure Reporting Integration
     14. Cool test report overview 
-    15. Categories 
+    15. Categories (By each marker)
     16. Graphs 
     17. Timeline 
     18. Behaviours 
