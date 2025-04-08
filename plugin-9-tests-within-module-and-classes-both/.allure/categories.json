@@ -1,0 +1,51 @@
+[
+  {
+    "name": "Sanity Failures",
+    "matchedStatuses": ["failed"],
+    "messageRegex": ".*",
+    "traceRegex": ".*",
+    "tags": ["sanity"]
+  },
+  {
+    "name": "Functional Failures",
+    "matchedStatuses": ["failed"],
+    "messageRegex": ".*",
+    "traceRegex": ".*",
+    "tags": ["functional"]
+  },
+  {
+    "name": "UI Failures",
+    "matchedStatuses": ["failed"],
+    "messageRegex": ".*",
+    "traceRegex": ".*",
+    "tags": ["ui"]
+  },
+  {
+    "name": "Smoke Failures",
+    "matchedStatuses": ["failed"],
+    "messageRegex": ".*",
+    "traceRegex": ".*",
+    "tags": ["smoke"]
+  },
+  {
+    "name": "Regression Failures",
+    "matchedStatuses": ["failed"],
+    "messageRegex": ".*",
+    "traceRegex": ".*",
+    "tags": ["regression"]
+  },
+  {
+    "name": "API Failures",
+    "matchedStatuses": ["failed"],
+    "messageRegex": ".*",
+    "traceRegex": ".*",
+    "tags": ["api"]
+  },
+  {
+    "name": "Slow Tests Failures",
+    "matchedStatuses": ["failed"],
+    "messageRegex": ".*",
+    "traceRegex": ".*",
+    "tags": ["slow"]
+  }
+]
