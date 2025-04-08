@@ -5,6 +5,10 @@ pytest --data-dir=test_data
 pytest --data-dir=test_data -n 4
 
 
+
+
+
+
 # allure reports
 ## Save the above steps in a shell script like run_tests.sh:
 run_test.sh

@@ -5,7 +5,11 @@
    12. pytest --co -m <marker>
 10. Parallel test execution by pytest-xdist
     11. -n <#tests>
-11. Test filtering by pytest
+22. Dynamic Test Generation
+    23. Tests can be created dynamically using the pytest_generate_tests hook.
+24. Skipping/Expected Failures
+    25. Use @pytest.mark.skip, @pytest.mark.skipif, or @pytest.mark.xfail.
+26. Test filtering by pytest
     12. -k "add" 
 13. Allure Reporting Integration
     14. Cool test report overview 
@@ -16,8 +20,3 @@
     19. Packages 
     20. Great community support 
     21. Open Source
-22. Dynamic Test Generation
-    23. Tests can be created dynamically using the pytest_generate_tests hook.
-24. Skipping/Expected Failures
-    25. Use @pytest.mark.skip, @pytest.mark.skipif, or @pytest.mark.xfail.
-26. 
