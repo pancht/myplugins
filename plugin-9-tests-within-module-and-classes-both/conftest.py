@@ -126,11 +126,3 @@ def config(request):
     logging.info(f"from config fixture by {process_name(request.config)} process")
     yield {"env": "staging", "timeout": 30}
     logging.info("Destroy config")
-#
-# def pytest_runtest_setup(item):
-#     # Collect all testrail_id markers
-#     testrail_ids = [mark.args[0] for mark in item.iter_markers(name="testrail_id")]
-#
-#     # Add all testrail_case_id labels dynamically to Allure
-#     for case_id in testrail_ids:
-#         allure.dynamic.label("testrail_case_id", case_id)
