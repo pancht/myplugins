@@ -1,12 +1,3 @@
-"""
-Pytest module demonstrating class-scoped, parameterized fixtures with UUID generation.
-
-This test suite showcases how to use a class-scoped fixture that is parameterized
-and cached per class instance to avoid repeated fixture execution. It also integrates
-with pytest-xdist to group test execution within the same process for performance
-and consistency.
-"""
-
 import logging
 import uuid
 from typing import Any
@@ -17,41 +8,62 @@ logger = logging.getLogger(__name__)
 @pytest.fixture(scope="class")
 def fixture_obj(request: Any):
     """
-    Fixture that generates and returns a unique identifier per test class parameter.
+    Class-scoped fixture that generates and caches a unique string per parameterized MyClass instance.
 
-    This fixture uses a combination of a parameter attribute and a UUID to build
-    a unique string. The result is stored on the test class itself, ensuring it is
-    reused across all test methods within the same parameterized test class instance.
+    The returned string is composed of the `my_param` attribute and a UUID.
+    Cached values are stored per test class and per parameter value to ensure uniqueness
+    across parameter sets within the same test class.
 
-    Parameters:
-        request (Any): Pytest's built-in fixture providing access to the requesting test context.
-
-    Returns:
-        str: A unique, class-scoped string identifier.
+    Example return: "abc--550e8400-e29b-41d4-a716-446655440000"
     """
-    if not hasattr(request.cls, "_fixture_obj"):
-        my_param = request.param
-        request.cls._fixture_obj = f"{my_param.my_param}--{str(uuid.uuid4())}"
-    return request.cls._fixture_obj
+    param_key = request.param.my_param  # Use the value of `my_param` as cache key
+    if not hasattr(request.cls, "_fixture_obj_cache"):
+        request.cls._fixture_obj_cache = {}  # Initialize cache dictionary
+    if param_key not in request.cls._fixture_obj_cache:
+        # Generate and store a unique string for this parameter
+        request.cls._fixture_obj_cache[param_key] = f"{param_key}--{str(uuid.uuid4())}"
+    return request.cls._fixture_obj_cache[param_key]
+
+
+@pytest.fixture(scope="class")
+def fixture_str(request: Any):
+    """
+    Class-scoped fixture that generates and caches a unique string per plain string parameter.
+
+    The returned string is the original string parameter combined with a UUID.
+    Cached values are stored per test class and per parameter value to ensure uniqueness
+    across parameter sets within the same test class.
+
+    Example return: "fgh--550e8400-e29b-41d4-a716-446655440000"
+    """
+    param_key = request.param  # Use the raw string parameter as cache key
+    if not hasattr(request.cls, "_fixture_str_cache"):
+        request.cls._fixture_str_cache = {}  # Initialize cache dictionary
+    if param_key not in request.cls._fixture_str_cache:
+        # Generate and store a unique string for this parameter
+        request.cls._fixture_str_cache[param_key] = f"{param_key}--{str(uuid.uuid4())}"
+    return request.cls._fixture_str_cache[param_key]
 
 
 class TestTestObj:
     """
-    Example test class using a cached, parameterized class-scoped fixture.
-
-    The fixture provides a unique identifier derived from a test parameter and
-    a UUID, and is reused across all test methods. This class can be grouped
-    in parallel test runs using `pytest-xdist` for scoped distribution.
+    Test class for scenarios using 'fixture_obj', which is based on MyClass instances.
     """
 
     def test_some_thing(self, fixture_obj):
-        """
-        Verifies the fixture value is accessible and outputs it.
-        """
         print(fixture_obj)
 
     def test_some_think(self, fixture_obj):
-        """
-        Ensures the same fixture value is reused and prints it.
-        """
         print(fixture_obj)
+
+
+class TestTestStr:
+    """
+    Test class for scenarios using 'fixture_str', which is based on plain string parameters.
+    """
+
+    def test_some_thing(self, fixture_str):
+        print(fixture_str)
+
+    def test_some_think(self, fixture_str):
+        print(fixture_str)
