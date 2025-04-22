@@ -1,0 +1,9 @@
+2025-04-07 23:12:03,929 - INFO - pytest_configure is called - once per session by worker process
+2025-04-07 23:12:04,157 - INFO - cache: Cache()
+2025-04-07 23:12:04,531 - INFO - Session started - tests are collected
+2025-04-07 23:12:05,478 - INFO - Collecting test item: @py_builtins
+2025-04-07 23:12:13,825 - INFO - Collecting test item: @pytest_ar
+2025-04-07 23:12:19,203 - INFO - Collecting test item: logging
+2025-04-07 23:12:24,573 - INFO - Collecting test item: pytest
+2025-04-07 23:12:29,332 - INFO - Collecting test item: Integration
+2025-04-07 23:12:41,986 - INFO - Collecting test item: get_test_data_from_yaml

@@ -1,0 +1,1 @@
+{"uuid": "6c901051-1901-4dd8-922d-fe3e100eaf66", "children": ["b3ce108d-5dd2-4205-95a7-a1e380612b9e"], "befores": [{"name": "integration", "status": "passed", "start": 1745297969337, "stop": 1745297969337}], "afters": [{"name": "integration::0", "status": "passed", "start": 1745297969439, "stop": 1745297969440}], "start": 1745297969337, "stop": 1745297969440}

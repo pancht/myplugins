@@ -1,0 +1,4 @@
+INFO     root:conftest.py:119 From integration fixture by worker process
+INFO     root:conftest.py:126 from config fixture by worker process
+INFO     root:conftest.py:128 Destroy config
+INFO     root:conftest.py:121 Destroy integration

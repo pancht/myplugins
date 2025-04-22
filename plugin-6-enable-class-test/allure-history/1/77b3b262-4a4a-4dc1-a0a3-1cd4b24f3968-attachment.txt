@@ -1,0 +1,5 @@
+INFO     root:plugin.py:122 From source fixture
+INFO     root:plugin.py:129 From destination fixture
+INFO     root:plugin.py:135 From integration fixture
+INFO     root:test_sample.py:14 from test test_subtract
+INFO     root:plugin.py:138 Destroy integration

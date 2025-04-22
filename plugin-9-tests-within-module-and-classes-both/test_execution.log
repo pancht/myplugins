@@ -1,0 +1,9 @@
+2025-04-22 10:29:29,063 - INFO - pytest_configure is called - once per session by worker process
+2025-04-22 10:29:29,101 - INFO - Session started by worker process
+2025-04-22 10:29:29,328 - INFO - pytest_generate_tests called by worker process
+2025-04-22 10:29:29,329 - INFO - pytest_generate_tests called by worker process
+2025-04-22 10:29:29,332 - INFO - pytest_generate_tests called by worker process
+2025-04-22 10:29:29,336 - INFO - From integration fixture by worker process
+2025-04-22 10:29:29,337 - INFO - from config fixture by worker process
+2025-04-22 10:29:29,435 - INFO - Destroy config
+2025-04-22 10:29:29,439 - INFO - Destroy integration

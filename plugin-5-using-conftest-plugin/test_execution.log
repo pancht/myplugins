@@ -1,0 +1,14 @@
+2025-04-07 16:20:47,067 - INFO - pytest_configure is called - once per session by master process
+2025-04-07 16:21:03,169 - INFO - cache: Cache()
+2025-04-07 16:21:03,272 - INFO - Session started - tests are collected
+2025-04-07 16:22:20,419 - INFO - pytest_configure is called - once per session by master process
+2025-04-07 16:22:25,598 - INFO - cache: Cache()
+2025-04-07 16:22:25,979 - INFO - Session started - tests are collected
+2025-04-07 16:22:43,767 - INFO - pytest_configure is called - once per session by worker process
+2025-04-07 16:22:50,233 - INFO - cache: Cache()
+2025-04-07 16:22:50,297 - INFO - Session started - tests are collected
+2025-04-07 16:22:50,360 - INFO - Collecting test item: @py_builtins
+2025-04-07 16:22:53,602 - INFO - Collecting test item: @pytest_ar
+2025-04-07 16:22:58,081 - INFO - Collecting test item: logging
+2025-04-07 16:23:00,906 - INFO - Collecting test item: Integration
+2025-04-07 16:23:04,048 - INFO - Collecting test item: test_add
