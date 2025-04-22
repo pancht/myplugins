@@ -1,0 +1,7 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","5","test_subtract[case0]","tests","Tue Apr 22 10:29:29 IST 2025","passed","Tue Apr 22 10:29:29 IST 2025","TestMathOperations","test_example","",""
+"","2","test_subtract[case1]","tests","Tue Apr 22 10:29:29 IST 2025","passed","Tue Apr 22 10:29:29 IST 2025","TestMathOperations","test_example","",""
+"","3","test_multi_input[1-4-5]","tests","Tue Apr 22 10:29:29 IST 2025","failed","Tue Apr 22 10:29:29 IST 2025","","test_example","",""
+"","2","test_multi_input[2-3-6]","tests","Tue Apr 22 10:29:29 IST 2025","passed","Tue Apr 22 10:29:29 IST 2025","","test_example","",""
+"","2","test_add[case1]","tests","Tue Apr 22 10:29:29 IST 2025","passed","Tue Apr 22 10:29:29 IST 2025","","test_example","",""
+"","3","test_add[case0]","tests","Tue Apr 22 10:29:29 IST 2025","passed","Tue Apr 22 10:29:29 IST 2025","","test_example","",""

@@ -1,0 +1,1 @@
+Running with integration-db-session and config {'env': 'staging', 'timeout': 30}
