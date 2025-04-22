@@ -1,30 +1,34 @@
-"""
-Pytest hook for dynamic test parameterization using MyClass instances.
-
-This configuration injects parameters into tests that require the 'fixture_obj'
-fixture. It uses indirect parameterization to pass custom objects to the fixture,
-enabling flexible and reusable test setups.
-"""
-
 from my_class import MyClass
 
 def pytest_generate_tests(metafunc):
     """
-    Hook to dynamically generate test parameters for the 'fixture_obj' fixture.
+    Hook to dynamically parametrize fixtures used in tests.
 
-    If the fixture name 'fixture_obj' is detected in the test function,
-    this hook applies indirect parameterization using an instance of MyClass.
-    This allows the fixture to receive a fully constructed object rather than a raw value.
+    This function checks which fixtures are requested by a test class or function
+    and injects parameter values accordingly. It supports indirect parametrization
+    so the actual fixture functions can receive the parameter values via `request.param`.
 
-    Parameters:
-        metafunc (Metafunc): Pytest-provided object that gives access to the test context
-                             for parameterization and test generation.
+    Fixtures supported:
+    - fixture_obj: Injects instances of MyClass with different `my_param` values.
+    - fixture_str: Injects plain strings (wrapped as MyClass instances in the fixture).
+
+    Each parameter set is given a custom ID for clarity in test output.
     """
+
+    # Parametrize 'fixture_obj' with two different MyClass instances
     if "fixture_obj" in metafunc.fixturenames:
-        # Indirectly parametrize 'fixture_obj' using an instance of MyClass
         metafunc.parametrize(
             "fixture_obj",
-            [MyClass("abc")],     # List of parameters passed to the fixture
-            indirect=True,        # Tell pytest to pass the param to the fixture, not the test directly
-            ids=["obj"]           # Custom ID for this parameter in test output
+            [MyClass("abc"), MyClass("cde")],
+            indirect=True,
+            ids=["obj1", "obj2"]
+        )
+
+    # Parametrize 'fixture_str' with two different strings
+    if "fixture_str" in metafunc.fixturenames:
+        metafunc.parametrize(
+            "fixture_str",
+            ["fgh", "ijk"],
+            indirect=True,
+            ids=["str1", "str2"]
         )
